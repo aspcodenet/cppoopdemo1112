@@ -7,7 +7,44 @@
 // void test(int a);
 // void test(int a){ return a; }
 
-class Human { // BARA EN RITNING
+// class Mammal{ // Däggdjur
+//     // föder levande ungar
+//     // diar sina barn
+// virtual void Sound(){};
+// };
+
+
+// class Cat : public Mammal{
+//     // mjuka
+//     // sura
+// void Sound() override { cout << "Mjau" }
+// };
+
+// class Dog : public Mammal{
+//     // har päls
+//     // är snälla
+// void Sound() override { cout << "Voff" }
+// };
+
+// Vi ska skriva kod på ett ställe!!!
+class GameCharacter{
+public:    
+    std::string name;
+    int level;
+    // int xPos, yPos
+    // int speed
+
+    virtual void act(){
+
+    };
+    virtual void mightLevelUp(){
+
+    };
+
+};
+
+
+class Human : public GameCharacter { // BARA EN RITNING
 private:
     int burpsInARow = 0;
     int age;
@@ -15,8 +52,6 @@ private:
 public:    
     Human(std::string name, int age);
     //const static std::string efternamn = "Holmberg";
-    std::string name;
-    int level;
     // metod = funktion INUTI en klass
     //metoder här inuti - ALLT OM KLASSEN LIGGER INUTI KLASSEN
 
@@ -26,8 +61,19 @@ public:
     int getAge();
 
     // Hålla reda på hur måmga gånger i rad
-    void act();
-    void mightLevelUp();
+    void act() override;
+    void mightLevelUp() override;
+};
+
+
+class Fly : public GameCharacter{
+
+public:
+    Fly(std::string name);
+
+    void act() override;
+    void mightLevelUp() override;
+
 };
 
 

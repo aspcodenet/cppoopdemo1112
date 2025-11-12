@@ -53,17 +53,16 @@ typedef struct {
 }Customer;
 
 int main(){
-    std::vector<Human> humans;
-    Human stefan ("Stefan",53);
-    Human kerstin("Kerstin",52); // Human är en klass, kerstin är ett OBJEKT (variabel av class)
-    Human oliver("Oliver",17); //Human är en klass, oliver är ett OBJEKT (variabel av class)
+    // i denna vector ligger saker av olika datatyp
+    std::vector<GameCharacter *> gameCharacters;
+    gameCharacters.push_back(new Human ("Stefan",53));
+    gameCharacters.push_back(new Human ("Kerstin",52));
+    gameCharacters.push_back(new Human ("Oliver",17));
+
+    gameCharacters.push_back(new Fly("Flugan"));
 
 
-    stefan.setAge(stefan.getAge() + 1);
-
-    humans.push_back(stefan);
-    humans.push_back(kerstin);
-    humans.push_back(oliver);
+//    stefan.setAge(stefan.getAge() + 1);
 
 
 
@@ -73,8 +72,8 @@ int main(){
     while(true){
         // Om vi level2 Svamp // humans.push_back()
         //Alla aktörer gör nåt 
-        for(Human human : humans){
-            human.act();
+        for(GameCharacter *gameCharacter : gameCharacters){
+            gameCharacter->act();
         }
         // C style index based loop
         // for(int i = 0; i < humans.size(); i++){
@@ -82,8 +81,8 @@ int main(){
         // }
 
         //Alla aktörer kanske levlar upp
-        for(Human human : humans){
-            human.mightLevelUp();
+        for(GameCharacter *gameCharacter : gameCharacters){
+            gameCharacter->mightLevelUp();
         }
         // for(int i = 0; i < humans.size(); i++){
         //     humans[i].mightLevelUp();
