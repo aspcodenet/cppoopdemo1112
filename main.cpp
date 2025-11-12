@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include<cstdlib>
+#include <stdexcept>
 
 // 1. OOP Grunder - tänk! Leta SUBSTANTIV - vi spånar webshop
 //   Customer 
@@ -24,9 +25,10 @@
 //          människor kan
 //                       - agera (antingen äta, dricka eller rapa)
 //                       - levla upp (om man rapar tre gånger på raken så levlar man upp en nivå)
-// 4. Inkapsling
-// 5. SPLITTA I cpp och h-filer
-// 6. I vector...
+// 4. Inkapsling + constructors
+// vad är static, private, public,protected
+// 5. I vector...
+// 6. SPLITTA I cpp och h-filer
 
 // 7. ÖVERKURS arv 13:00
 //         det finns också ... FLUGOR
@@ -35,13 +37,31 @@
 class Human { // BARA EN RITNING
 private:
     int burpsInARow = 0;
+    int age;
 
 public:    
+    Human(std::string name, int age){
+       this->name = name; 
+       setAge(age);
+       level = 0;
+    }
+    //const static std::string efternamn = "Holmberg";
     std::string name;
     int level;
-    int age;
     // metod = funktion INUTI en klass
     //metoder här inuti - ALLT OM KLASSEN LIGGER INUTI KLASSEN
+
+    // setter function
+    void setAge(int newAge){
+        if(newAge < 0 || newAge > 150){
+            throw std::invalid_argument("Argument for age is not valid");
+        }
+        age = newAge;
+    }
+    // getter function
+    int getAge(){
+        return age;
+    }
 
     // Hålla reda på hur måmga gånger i rad
     void act(){
@@ -73,41 +93,42 @@ public:
 
 
 int main(){
-        
-    Human stefan; // Human är en klass, stefan är ett OBJEKT (variabel av class)
-    Human kerstin; // Human är en klass, kerstin är ett OBJEKT (variabel av class)
-    Human oliver; //Human är en klass, oliver är ett OBJEKT (variabel av class)
+    std::vector<Human> humans;
+    Human stefan ("Stefan",53);
+    Human kerstin("Kerstin",52); // Human är en klass, kerstin är ett OBJEKT (variabel av class)
+    Human oliver("Oliver",17); //Human är en klass, oliver är ett OBJEKT (variabel av class)
 
-    stefan.name = "Stefan";
-    stefan.level = 0;
-    stefan.age = 53;
 
-    kerstin.name = "Kerstin";
-    kerstin.level = 0;
-    kerstin.age = 52;
+    stefan.setAge(stefan.getAge() + 1);
 
-    oliver.name = "Oliver";
-    oliver.level = 0;
-    oliver.age = 17;
+    humans.push_back(stefan);
+    humans.push_back(kerstin);
+    humans.push_back(oliver);
 
-    // ShoppingCart cart;
-    // Product product;
 
-    // cart.add(product);
-    // int total = cart.CalculateTotal();
 
 
     srand((unsigned) time(NULL));
     //Game loop
     while(true){
+        // Om vi level2 Svamp // humans.push_back()
         //Alla aktörer gör nåt 
-        stefan.act();
-        kerstin.act();
-        oliver.act();
+        for(Human human : humans){
+            human.act();
+        }
+        // C style index based loop
+        // for(int i = 0; i < humans.size(); i++){
+        //     humans[i].act();
+        // }
+
         //Alla aktörer kanske levlar upp
-        stefan.mightLevelUp();
-        kerstin.mightLevelUp();
-        oliver.mightLevelUp();
+        for(Human human : humans){
+            human.mightLevelUp();
+        }
+        // for(int i = 0; i < humans.size(); i++){
+        //     humans[i].mightLevelUp();
+        // }
+
 
         std::cout << "Press key for next turn " << std::endl;
         std::cin.get();
