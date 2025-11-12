@@ -3,6 +3,7 @@
 #include <vector>
 #include<cstdlib>
 #include <stdexcept>
+#include "human.h"
 
 // 1. OOP Grunder - tänk! Leta SUBSTANTIV - vi spånar webshop
 //   Customer 
@@ -34,54 +35,6 @@
 //         det finns också ... FLUGOR
 
 // C++ så är struct och class SAMMA sak - liten skillnad i det vi kallar för Access modifiers
-class Human { // BARA EN RITNING
-private:
-    int burpsInARow = 0;
-    int age;
-
-public:    
-    Human(std::string name, int age){
-       this->name = name; 
-       setAge(age);
-       level = 0;
-    }
-    //const static std::string efternamn = "Holmberg";
-    std::string name;
-    int level;
-    // metod = funktion INUTI en klass
-    //metoder här inuti - ALLT OM KLASSEN LIGGER INUTI KLASSEN
-
-    // setter function
-    void setAge(int newAge){
-        if(newAge < 0 || newAge > 150){
-            throw std::invalid_argument("Argument for age is not valid");
-        }
-        age = newAge;
-    }
-    // getter function
-    int getAge(){
-        return age;
-    }
-
-    // Hålla reda på hur måmga gånger i rad
-    void act(){
-        std::string actions[]={"eats","drinks","burps"};
-        int index = rand()%3;        
-        if(actions[index] == "burps"){
-            burpsInARow++;
-        }else{
-            burpsInARow = 0;
-        }
-        std::cout << name << " " << actions[index] << std::endl;
-    }
-    void mightLevelUp(){
-        if(burpsInARow == 3 ){
-            level++;
-            std::cout << name << " har levlat upp till "  << level << std::endl;
-        }
-       //if(tregångerpårad) // level++
-    }
-};
 
 // typedef struct  { // BARA EN RITNING
 //     std::string name;
@@ -90,7 +43,14 @@ public:
 //     //metoder här inuti
 // }Human;
 
-
+typedef struct {
+    int amount;
+//    char messages[3][20];
+    char message1[20];
+    char message2[20];
+    char message3[20];
+    int antalUsed; // 2
+}Customer;
 
 int main(){
     std::vector<Human> humans;
